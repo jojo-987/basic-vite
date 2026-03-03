@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <div className="main-page">
-      Hello Intern 2026, This is version number 1.
+      Hello Intern 2026, This is version: 1.0.1 
       </div>
     </>
   )
