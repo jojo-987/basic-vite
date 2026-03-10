@@ -2,7 +2,7 @@ pipeline {
     agent none
     
     environment {
-        P_VERSION='3.0.1'
+        P_VERSION='3.0.3'
     }
 
     stages{
@@ -51,15 +51,32 @@ pipeline {
                     version: "${P_VERSION}-${BUILD_TIMESTAMP}"
                     }
                 }
+                
             }
             
         }
         stage('CD') {
             agent{ label 'pm' }
             stages{
+                stage('fetch-playbook'){
+                    steps{
+                        checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'jojo-987', url: 'https://github.com/jojo-987/ansible-playbooks.git']])
+                    }
+                }
                 stage('running-playbook'){
                     steps {
-                    ansiblePlaybook disableHostKeyChecking: true, credentialsId: '192.168.0.202', installation: 'ansible', playbook: '/home/jenkins/agent/workspace/playbooks/d6-optimized-redeploy-with-rollback-frontend-iis-playbook.yml', vaultTmpPath: ''
+                    ansiblePlaybook credentialsId: '192.168.0.202', 
+                    disableHostKeyChecking: true, 
+                    installation: 'ansible', 
+                    playbook: './final-redeploy-frontend-playbook.yml', 
+                    vaultTmpPath: '',
+                    extraVars: [
+                        nexus_url: 'http://192.168.0.49:8081/service/rest/v1/search/assets/download?sort=version&direction=desc&repository=Interns_Nexus_2026&maven.extension=zip&group=krish.frontend&name=basic-vite',
+                        project_name: 'basic-vite',
+                        site_name: 'kp-basic-vite2',
+                        site_url: 'http://192.168.0.116:5173',
+                        host_port: '5173'
+                        ]
                     }
                 }
             }
