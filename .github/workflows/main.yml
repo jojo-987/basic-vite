@@ -12,3 +12,24 @@ jobs:
         run: |
           echo "Event type: ${{ github.event.action }}"
           echo "Payload value: ${{ github.event.client_payload.env }}"
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo the payload
+        run: |
+          echo "********************"
+          echo "* You Ran Run-tests"
+          echo "********************"
+          echo "Event type: ${{ github.event.action }}"
+          echo "Payload value: ${{ github.event.client_payload.env }}"
+  deploy-to-prod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo the payload
+        run: |
+          echo "********************"
+          echo "* You Ran deploy-to-prod"
+          echo "********************"
+          echo "Event type: ${{ github.event.action }}"
+          echo "Payload value: ${{ github.event.client_payload.env }}"
+
