@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: check github object
-        run: echo "${{ github }}"
+        run: echo "${{ toJson(github) }}"
       - name: npm install and build webpack
         run: |
           npm install
