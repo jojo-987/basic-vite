@@ -1,5 +1,7 @@
 # React + Vite
 
+[![Node.js CI](https://github.com/jojo-987/basic-vite/actions/workflows/node-js.yml/badge.svg)](https://github.com/jojo-987/basic-vite/actions/workflows/node-js.yml)
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
